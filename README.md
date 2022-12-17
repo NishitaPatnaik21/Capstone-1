@@ -1,3 +1,3 @@
 # Capstone
 
-- [] Baisc Pipeline 
+- [ ] Baisc Pipeline 
