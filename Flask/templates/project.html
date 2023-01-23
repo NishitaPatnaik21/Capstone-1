@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
+
+    {% include 'links.html' %}
+    {% block head %}
+    {% endblock %}
+<body>
+    {% include 'header.html' %}
+    {% block content %}
+    {% endblock %}
+    <div>
+        <p class="headingpage">Projects</p>
+    </div>
+
+    <div class="flexcontainer">
+       <a href="{{url_for('modal')}}" class="but"> 
+        <div class="newbox">
+        
+        <div class="box">
+            
+                <p id="icon">
+                        +
+                </p>
+                <p id="text">
+                    Create new Project
+                </p>
+            
+            
+        </div>
+    </div>
+    </a>
+    </div>
+
+{% block modal %}{% endblock %}
+</body>
+{% block script %}{% endblock %}
+
+</html>

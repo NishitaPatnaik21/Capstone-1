@@ -1,0 +1,25 @@
+{% extends 'project.html' %}
+{% block modal %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/modal.css') }}">
+<div class="modal" id="example">
+
+    <div class="modal-window">
+<div class="form">
+    <span class="close">
+
+    </span>
+</div>
+    
+</div>
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+    $(document).ready(function(){
+        console.log("window is loaded")
+        $("#example").modal("show")
+    })
+    </script>
+{% endblock %}

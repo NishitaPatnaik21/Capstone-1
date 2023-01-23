@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
+    
+    {% include 'links.html' %}
+    {% block head %}
+    {% endblock %}
+
+
+<body>
+    {% include 'header.html' %}
+    {% block content %}
+    {% endblock %}
+
+<div class="row">    
+<!--COL 1-->
+<div class="col1">
+<p class="hometxt">The slide annotator platform for research growth . . .</p>
+<a id=link href=/Project> <button class="CTA">Try Now</button></a>
+</a>
+</div>
+<!--COL 2-->
+<div class="col2">
+
+</div>
+</div>
+</body>
+</html>
