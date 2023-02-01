@@ -1,13 +1,51 @@
 <!DOCTYPE html>
 <head>
-
+   
+    <script src="/static/openseadragon-bin-4.0.0/openseadragon.min.js"></script>
+  
 </head>
 <body>
     <h1>Tiles of each images</h1>
     <div class="images">
-        {% for image_url in image_urls %}
+        <!-- {% for image_url in image_urls %}
         <img src="{{image_url }}">
-     {% endfor %}
+         <img src="{{image_url}}"/>
+     {% endfor %} -->
+    
     </div>
+
+    <div id="openseadragon1" style="width: 800px; height: 600px;"></div>
+    <script type="text/javascript">
+      var viewer = OpenSeadragon({
+        id: "openseadragon1",
+        tileSources: [{
+            
+            tileSource:"{{image_url+'.dzi' }}",
+            x:60,
+            y:60,
+            height:8000
+
+        },
+        {
+            tileSource:'/TCGA-OL-A6VO-01A-01-TSA.1654A5EF-A6C0-47C6-BD01-56A52F368F2A.svs',
+            x: 0,
+	        y: 0
+        }
+     
+    ],
+        prefixUrl: "{{ url_for('static', filename='images/') }}",
+        showNavigator: true,
+        showRotationControl: true,
+        animationTime: 0.5,
+        blendTime: 0.1,
+        constrainDuringPan: true,
+        maxZoomPixelRatio: 2,
+        minZoomLevel: 1,
+        visibilityRatio: 1,
+        zoomPerScroll: 2
+
+        
+      });
+    </script>
 </div>
 </body>

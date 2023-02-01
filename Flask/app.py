@@ -1,7 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for, send_from_directory
 import large_image
 from PIL import Image
 import slideio
+
 import os
 import numpy as np
 os.add_dll_directory('C:/Users/Neha/AppData/Local/Programs/Python/Python38/lib/site-packages/openslide/openslide-win64-20221111/bin')
@@ -26,7 +27,7 @@ os.add_dll_directory('C:/Users/Neha/AppData/Local/Programs/Python/Python38/lib/s
 wsi_path='TCGA-OL-A6VO-01A-01-TSA.1654A5EF-A6C0-47C6-BD01-56A52F368F2A.svs'
 size=os.path.getsize(wsi_path)
 print(size)
-slide = openslide . OpenSlide ( wsi_path )
+slide = openslide.OpenSlide(wsi_path)
 Image.MAX_IMAGE_PIXELS = None
 app = Flask(__name__)
 
@@ -56,10 +57,16 @@ def project():
     return render_template('project.html')
 
 
+@app.route('/<path:filename>')
+def display_image(filename):
+    return send_from_directory('static', filename)
+
 @app.route('/Annotate')
 def annotate():
     slide_props = slide.properties
     print(slide_props)
+    #level = slide.get_best_level_for_downsample(16)
+    #display_image = slide.read_region((600, 600), 3, (width, height))
 
     print("Vendor is:", slide_props['openslide.vendor'])
     print("Pixel size of X in um is:", slide_props['openslide.mpp-x'])
@@ -131,8 +138,14 @@ def annotate():
             temp_tile_np = np.array(temp_tile_RGB)
             plt.imsave(tile_name + ".png", temp_tile_np)
             image_urls.append(tile_name+".png")
+        print(image_urls)
 
-    return render_template('Annotate.html',image_urls=image_urls)
+    image_url = url_for('display_image', filename=wsi_path)
+    print('/static'+image_url+'.dzi')
+    image_url=image_url
+    return render_template('Annotate.html', image_url=image_url, slide=slide)
+
+   # return render_template('Annotate.html',slide=slide)
     
 
 
